@@ -1,0 +1,48 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group = "uk.gov.ida"
+version = "2.0.0-$System.env.BUILD_NUMBER"
+
+repositories {
+    maven { url 'https://artifactory.ida.digital.cabinet-office.gov.uk/artifactory/whitelisted-repos' }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.11',
+            'org.assertj:assertj-core:1.6.0'
+
+    def dependencyVersions = [
+            dropwizardVersion:"1.0.9"
+    ]
+
+    compile "io.dropwizard:dropwizard-views:$dependencyVersions.dropwizardVersion",
+            'de.neuland-bfi:jade4j:0.4.0',
+            'com.google.guava:guava:19.0',
+            'org.apache.commons:commons-lang3:3.4',
+            'org.glassfish.jersey.core:jersey-server:2.23.2'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url "/srv/maven" // change to point to your repo, e.g. http://my.org/repo
+        }
+    }
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+defaultTasks 'clean', 'publishToMavenLocal'
