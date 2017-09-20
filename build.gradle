@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group = "uk.gov.ida"
-version = "2.0.0-$System.env.BUILD_NUMBER"
+version = "2.0.0-${System.env.BUILD_NUMBER ?: 'SNAPSHOT'}"
 
 repositories {
     maven { url 'https://artifactory.ida.digital.cabinet-office.gov.uk/artifactory/whitelisted-repos' }
@@ -13,7 +13,7 @@ dependencies {
             'org.assertj:assertj-core:1.6.0'
 
     def dependencyVersions = [
-            dropwizardVersion:"1.0.9"
+            dropwizardVersion:"1.1.4"
     ]
 
     compile "io.dropwizard:dropwizard-views:$dependencyVersions.dropwizardVersion",
