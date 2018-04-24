@@ -1,5 +1,7 @@
 # dropwizard-jade
 
+[![Build Status](https://travis-ci.org/alphagov/dropwizard-jade.svg?branch=master)](https://travis-ci.org/alphagov/dropwizard-jade)
+
 Dropwizard extension to use the [Jade templating engine](http://jade-lang.com/) in Views.
 
 ## Using the library
